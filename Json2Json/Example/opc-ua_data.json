@@ -1,0 +1,15 @@
+﻿//Device: [ "opcuadev001" ], Data:
+[
+  {
+    "ApplicationUri": "urn:OPC-A:ICPDAS:ICPDAS_OPC_UA_Server",
+    "DisplayName": "ns=2;s=MTCP_CurrentValueTask.Temperature_C",
+    "NodeId": "ns=2;s=MTCP_CurrentValueTask.Temperature_C",
+    "Value": {
+      "Value": 2717,
+      "SourceTimestamp": "2017-11-04T09:59:48.3407981Z"
+    }
+  }
+]
+//Properties:
+//'content-type': 'application/opcua+uajson' 
+//'devicename': 'opcPublisher'
