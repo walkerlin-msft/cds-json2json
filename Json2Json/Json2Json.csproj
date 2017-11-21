@@ -57,8 +57,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Example\Input.json" />
-    <None Include="Example\opc-ua_data.json" />
+    <None Include="Example\CDS-windowspublisherv212-MessageTemplate.json" />
+    <None Include="Example\Input-ICP_DAS_UA5231-publisher-v212.json" />
+    <None Include="Example\Input-Sample1.json" />
+    <None Include="Example\Input-opc-ua_data.json" />
     <None Include="Example\Transformer_copy.json" />
     <None Include="packages.config" />
   </ItemGroup>

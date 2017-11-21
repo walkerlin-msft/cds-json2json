@@ -1,0 +1,16 @@
+[
+  {
+    "MessageName": "ICP_DAS-UA5231",
+    "MessageId": 85,
+    "MessagePayload": {
+      "companyId": "numeric || mandatory || 69",
+      "msgTimestamp": "datetime || mandatory || yyyy-MM-ddTHH:mm:ss",
+      "equipmentId": "string || mandatory || Windwos-OPC-UA-Publisher-v212",
+      "equipmentRunStatus": "numeric || mandatory || 0, 1, -1",
+      "TemperatureC": "numeric || option",
+      "CO2": "numeric || option",
+      "Humidity": "numeric || option",
+      "TemperatureF": "numeric || option"
+    }
+  }
+]

@@ -1,0 +1,83 @@
+﻿[
+  {
+    "ApplicationUri": "urn:OPC-A:ICPDAS:ICPDAS_OPC_UA_Server",
+    "DisplayName": "ns=2;s=MTCP_CurrentValueTask.Temperature_C",
+    "NodeId": "ns=2;s=MTCP_CurrentValueTask.Temperature_C",
+    "Value": {
+      "Value": 2500,
+      "SourceTimestamp": "2017-11-21T07:23:13.753617Z"
+    }
+  },
+  {
+    "ApplicationUri": "urn:OPC-A:ICPDAS:ICPDAS_OPC_UA_Server",
+    "DisplayName": "ns=2;s=MTCP_CurrentValueTask.CO2",
+    "NodeId": "ns=2;s=MTCP_CurrentValueTask.CO2",
+    "Value": {
+      "Value": 741,
+      "SourceTimestamp": "2017-11-21T07:23:13.753617Z"
+    }
+  },
+  {
+    "ApplicationUri": "urn:OPC-A:ICPDAS:ICPDAS_OPC_UA_Server",
+    "DisplayName": "ns=2;s=MTCP_CurrentValueTask.Humidity",
+    "NodeId": "ns=2;s=MTCP_CurrentValueTask.Humidity",
+    "Value": {
+      "Value": 6214,
+      "SourceTimestamp": "2017-11-21T07:23:13.753617Z"
+    }
+  },
+  {
+    "ApplicationUri": "urn:OPC-A:ICPDAS:ICPDAS_OPC_UA_Server",
+    "DisplayName": "ns=2;s=MTCP_CurrentValueTask.Temperature_F",
+    "NodeId": "ns=2;s=MTCP_CurrentValueTask.Temperature_F",
+    "Value": {
+      "Value": 7700,
+      "SourceTimestamp": "2017-11-21T07:23:13.753617Z"
+    }
+  },
+  {
+    "ApplicationUri": "urn:OPC-A:ICPDAS:ICPDAS_OPC_UA_Server",
+    "DisplayName": "ns=2;s=MTCP_CurrentValueTask.Temperature_C",
+    "NodeId": "ns=2;s=MTCP_CurrentValueTask.Temperature_C",
+    "Value": {
+      "Value": 2501,
+      "SourceTimestamp": "2017-11-21T07:23:16.7613282Z"
+    }
+  },
+  {
+    "ApplicationUri": "urn:OPC-A:ICPDAS:ICPDAS_OPC_UA_Server",
+    "DisplayName": "ns=2;s=MTCP_CurrentValueTask.CO2",
+    "NodeId": "ns=2;s=MTCP_CurrentValueTask.CO2",
+    "Value": {
+      "Value": 740,
+      "SourceTimestamp": "2017-11-21T07:23:16.7613282Z"
+    }
+  },
+  {
+    "ApplicationUri": "urn:OPC-A:ICPDAS:ICPDAS_OPC_UA_Server",
+    "DisplayName": "ns=2;s=MTCP_CurrentValueTask.Humidity",
+    "NodeId": "ns=2;s=MTCP_CurrentValueTask.Humidity",
+    "Value": {
+      "Value": 6216,
+      "SourceTimestamp": "2017-11-21T07:23:16.7613282Z"
+    }
+  },
+  {
+    "ApplicationUri": "urn:OPC-A:ICPDAS:ICPDAS_OPC_UA_Server",
+    "DisplayName": "ns=2;s=MTCP_CurrentValueTask.Temperature_F",
+    "NodeId": "ns=2;s=MTCP_CurrentValueTask.Temperature_F",
+    "Value": {
+      "Value": 7701,
+      "SourceTimestamp": "2017-11-21T07:23:16.7613282Z"
+    }
+  },
+  {
+    "ApplicationUri": "urn:OPC-A:ICPDAS:ICPDAS_OPC_UA_Server",
+    "DisplayName": "ns=2;s=MTCP_CurrentValueTask.Humidity",
+    "NodeId": "ns=2;s=MTCP_CurrentValueTask.Humidity",
+    "Value": {
+      "Value": 6219,
+      "SourceTimestamp": "2017-11-21T07:23:19.7689104Z"
+    }
+  }
+]
