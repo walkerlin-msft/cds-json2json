@@ -57,12 +57,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Example\CDS-windowspublisherv212-MessageTemplate.json" />
-    <None Include="Example\Input-ICP_DAS_UA5231-publisher-v212.json" />
-    <None Include="Example\Input-Sample1.json" />
-    <None Include="Example\Input-opc-ua_data.json" />
-    <None Include="Example\Transformer_copy.json" />
+    <None Include="CdsMessageTemplate\CDS-Driller.json" />
+    <None Include="CdsMessageTemplate\CDS-UA5231-windowspublisherv212.json" />
+    <None Include="TelemetryExample\ICP_DAS_UA5231-publisher-v212.json" />
+    <None Include="TelemetryExample\OPCUA_Gateway_uagwadvt01.json" />
     <None Include="packages.config" />
+    <None Include="Transform\Transform-ICP_DAS_UA5231-publisher-v212.json" />
+    <None Include="Transform\Transform-OPCUA_Gateway_uagwadvt01.json" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

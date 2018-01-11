@@ -1,0 +1,47 @@
+﻿[
+  {
+    "MessageName": "Driller",
+    "MessageId": 259,
+    "MessagePayload": {
+      "companyId": "numeric || mandatory || 55",
+      "msgTimestamp": "datetime || mandatory || yyyy-MM-ddTHH:mm:ss",
+      "equipmentId": "string || mandatory || SchneiderPLC-A", //"Gateway": "uagwadvt01"
+      "equipmentRunStatus": "numeric || mandatory || 0, 1, -1",
+      "RPM": "numeric || option",
+      "Distance": "numeric || option",
+      "cpuUsage": "numeric || option",
+      "memoryUsage": "numeric || option",
+      "Approach": "bool || option || True, False"
+    }
+  },
+  {
+    "MessageName": "Driller",
+    "MessageId": 259,
+    "MessagePayload": {
+      "companyId": "numeric || mandatory || 55",
+      "msgTimestamp": "datetime || mandatory || yyyy-MM-ddTHH:mm:ss",
+      "equipmentId": "string || mandatory || SchneiderPLC-M", //"Gateway": "uagwmoxa01"
+      "equipmentRunStatus": "numeric || mandatory || 0, 1, -1",
+      "RPM": "numeric || option",
+      "Distance": "numeric || option",
+      "cpuUsage": "numeric || option",
+      "memoryUsage": "numeric || option",
+      "Approach": "bool || option || True, False"
+    }
+  },
+  {
+    "MessageName": "Driller",
+    "MessageId": 259,
+    "MessagePayload": {
+      "companyId": "numeric || mandatory || 55",
+      "msgTimestamp": "datetime || mandatory || yyyy-MM-ddTHH:mm:ss",
+      "equipmentId": "string || mandatory || SchneiderPLC-N", //"Gateway": "uagwnexc01"
+      "equipmentRunStatus": "numeric || mandatory || 0, 1, -1",
+      "RPM": "numeric || option",
+      "Distance": "numeric || option",
+      "cpuUsage": "numeric || option",
+      "memoryUsage": "numeric || option",
+      "Approach": "bool || option || True, False"
+    }
+  }
+]

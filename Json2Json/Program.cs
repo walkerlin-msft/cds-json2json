@@ -16,39 +16,61 @@ namespace Json2Json
 
         static void Main(string[] args)
         {
+            /* Generate the Convert Script */
+            //GenerateConvertScript_Opcua5231Publisher("ICP_DAS_UA5231-publisher-v212.json");
+            GenerateConvertScript_OpcuaDrillerPublisher("OPCUA_Gateway_uagwadvt01.json");
 
-            testOPCUA();
-            //testInputSampleFromFile();
+            /* Watch the result */
+            //WatchTransformResult("ICP_DAS_UA5231-publisher-v212.json", "Transform-ICP_DAS_UA5231-publisher-v212.json");
+            //WatchTransformResult("OPCUA_Gateway_uagwadvt01.json", "Transform-OPCUA_Gateway_uagwadvt01.json");
 
             Console.ReadLine();
         }
 
-        static void testInputSampleFromFile()
+        static void WatchTransformResult(string telemetryFileName, string transformerFileName)
         {
-            string input = File.ReadAllText("../../Example/Input-ICP_DAS_UA5231-publisher-v212.json");
+            Console.WriteLine("[WatchTransformResult]");
+            Console.WriteLine("input file: {0}", telemetryFileName);
+            Console.WriteLine("transformer file: {0}\n", transformerFileName);
+            string input = File.ReadAllText("../../TelemetryExample/"+ telemetryFileName);
+            string transformer = File.ReadAllText("../../Transform/"+ transformerFileName);
 
-            string transformer = File.ReadAllText("../../Example/Transformer_copy.json");
+            var token = JToken.Parse(input);
+            if(token is JArray)
+            {
+                IEnumerable<JObject> elementList = token.ToObject<List<JObject>>();
 
-            string transformedString = JsonTransformer.Transform(transformer, input);
-            Console.WriteLine("################################################################################################");
-            Console.WriteLine(transformedString);
+                foreach(var element in elementList)
+                {
+                    string transformedString = JsonTransformer.Transform(transformer, element.ToString());
+                    Console.WriteLine(transformedString);
+                    Console.WriteLine("################################################################################################");
+                }
+            }
+            else if(token is JObject)
+            {
+                JObject element = token.ToObject<JObject>();
+                string transformedString = JsonTransformer.Transform(transformer, element.ToString());
+                Console.WriteLine(transformedString);
+                Console.WriteLine("################################################################################################");
+            }
+            else
+            {
+                Console.WriteLine("Not a vaild JSON input file");
+            }
         }
 
-        static void testOPCUA()
+        static void GenerateConvertScript_OpcuaDrillerPublisher(string filename)
         {
-            //string input = getOPCUAinput();
-            string input = File.ReadAllText("../../Example/Input-ICP_DAS_UA5231-publisher-v212.json");
-            //string input = File.ReadAllText("../../Example/Input-opc-ua_data.json");
-
+            string input = File.ReadAllText("../../TelemetryExample/" + filename);
             Console.WriteLine("input= {0}\n", input);
 
-            //string transformer = getOPCUATransformer(69, 85);
-            string transformer = getOPCUATransformerUA5231(69, 85);
+            string transformer = getOpcuaTransformerUagwadvt01(55, 259);
 
             Console.WriteLine("transformer= {0}\n", transformer);
 
+            /* Test */
             List<JObject> elementList = JsonConvert.DeserializeObject<List<JObject>>(input);
-
             foreach (var element in elementList.Select((value, index) => new { Value = value, Index = index }))
             {
                 //// DO THE TRANSFORM
@@ -57,39 +79,37 @@ namespace Json2Json
             }
 
             //// Save the JSON file
-            var filePath = @".\transformer.json";
+            var filePath = @"../../Transform/Transform-" + filename;
             File.WriteAllText(filePath, transformer);
             Console.WriteLine("filePath= {0}", filePath);
         }
 
-        static string getOPCUAinput()
+        static void GenerateConvertScript_Opcua5231Publisher(string filename)
         {
-            var inputArray = new JArray();
-            var inputJson = new JObject();
-            var valueJson = new JObject();
+            string input = File.ReadAllText("../../TelemetryExample/" + filename);
 
-            valueJson.Add("Value", 2717);
-            //valueJson.Add("Value", null);
+            Console.WriteLine("input= {0}\n", input);
 
-            valueJson.Add("SourceTimestamp", "2017-11-04T09:59:48.3407981Z");
-            //valueJson.Add("SourceTimestamp", "");
+            string transformer = getOPCUATransformerUA5231(69, 85);
 
-            //inputJson.Add("ApplicationUri", "urn:OPC-A:ICPDAS:ICPDAS_OPC_UA_ServerABC");
-            inputJson.Add("ApplicationUri", "urn:OPC-A:ICPDAS:ICPDAS_OPC_UA_ServerA01");
-            //inputJson.Add("ApplicationUri", "urn:OPC-A:ICPDAS:ICPDAS_OPC_UA_ServerA02");
+            Console.WriteLine("transformer= {0}\n", transformer);
 
-            inputJson.Add("DisplayName", "ns=2;s=MTCP_CurrentValueTask.Temperature_C");
+            /* Test */
+            List<JObject> elementList = JsonConvert.DeserializeObject<List<JObject>>(input);
+            foreach (var element in elementList.Select((value, index) => new { Value = value, Index = index }))
+            {
+                //// DO THE TRANSFORM
+                string output = JsonTransformer.Transform(transformer, element.Value.ToString());
+                Console.WriteLine("output[{0}]= {1}", element.Index, output);
+            }
 
-            //inputJson.Add("NodeId", "ns=2;s=MTCP_CurrentValueTask.Temperature_F");
-            inputJson.Add("NodeId", "ns=2;s=MTCP_CurrentValueTask.Temperature_C");
-
-            inputJson.Add("Value", valueJson);
-
-            inputArray.Add(inputJson);
-            return inputArray.ToString();
+            //// Save the JSON file
+            var filePath = @"../../Transform/Transform-"+ filename;
+            File.WriteAllText(filePath, transformer);
+            Console.WriteLine("filePath= {0}", filePath);
         }
 
-        static string getOPCUATransformer(int companyId, int messageCatalogId)
+        static string getOpcuaTransformerUagwadvt01(int companyId, int messageCatalogId)
         {
             var transformerJson = new JObject();
 
@@ -105,46 +125,72 @@ namespace Json2Json
 
             // equipmentId
             var applicationUri = Just.GetValueIfExists("ApplicationUri");
+            var gatewayName = Just.GetValueIfExists("Gateway");
 
             var equipmentId = Just.IfCondition(applicationUri,
-                "urn:OPC-A:ICPDAS:ICPDAS_OPC_UA_ServerA01",
-                "A001",
-                Just.IfCondition(applicationUri,
-                    "urn:OPC-A:ICPDAS:ICPDAS_OPC_UA_ServerA02",
-                    "A002",
-                    Just.SubStringFromLastColon(applicationUri)));
+                "urn::SchneiderElectric:M241-251UaServer",
+                Just.IfCondition(gatewayName,
+                    "uagwadvt01",
+                    "SchneiderPLC-A",
+                    Just.IfCondition(gatewayName, 
+                        "uagwmoxa01",
+                        "SchneiderPLC-M",
+                        Just.IfCondition(gatewayName,
+                            "uagwnexc01",
+                            "SchneiderPLC-N",
+                            Just.CDS_MESSAGE_TRANSFORM_PROPERTY_NOT_FOUND))),
+                Just.CDS_MESSAGE_TRANSFORM_PROPERTY_NOT_FOUND);
             transformerJson.Add("equipmentId", equipmentId);
 
             // equipmentRunStatus
             transformerJson.Add("equipmentRunStatus", 1);// Hard code
 
-
             var valueValue = Just.GetValueIfExistsAndNotEmpty("Value.Value");
             var nodeId = Just.GetValueIfExistsAndNotEmpty("NodeId");
 
-            // Temperature
-            var temperature = Just.IfCondition(
+            // RPM
+            var rpm = Just.IfCondition(
                 nodeId,
                 Just.CDS_MESSAGE_TRANSFORM_PROPERTY_NOT_FOUND,
                 Just.CDS_MESSAGE_TRANSFORM_PROPERTY_NOT_FOUND,
                 Just.IfCondition(
                     nodeId,
-                    "ns=2;s=MTCP_CurrentValueTask.Temperature_C",
+                    "ns=2;s=OPC.Read_Velocity",
                     valueValue,
                     Just.CDS_MESSAGE_TRANSFORM_PROPERTY_NOT_FOUND));
-            transformerJson.Add("Temperature", temperature);
+            transformerJson.Add("RPM", rpm);
 
-            // TemperatureF
-            var temperatureF = Just.IfCondition(
+            // Distance
+            var distance = Just.IfCondition(
                 nodeId,
                 Just.CDS_MESSAGE_TRANSFORM_PROPERTY_NOT_FOUND,
                 Just.CDS_MESSAGE_TRANSFORM_PROPERTY_NOT_FOUND,
                 Just.IfCondition(
                     nodeId,
-                    "ns=2;s=MTCP_CurrentValueTask.Temperature_F",
+                    "ns=2;s=OPC.Sensor_IW0",
                     valueValue,
                     Just.CDS_MESSAGE_TRANSFORM_PROPERTY_NOT_FOUND));
-            transformerJson.Add("TemperatureF", temperatureF);
+            transformerJson.Add("Distance", distance);
+
+            // cpuUsage
+            var cpuUsage = Just.GetValueIfExistsAndNotEmpty("CPU_Usage");
+            transformerJson.Add("cpuUsage", cpuUsage);
+
+            // memoryUsage
+            var memoryUsage = Just.GetValueIfExistsAndNotEmpty("Memory_Usage");
+            transformerJson.Add("memoryUsage", memoryUsage);
+
+            // Approach
+            var approach = Just.IfCondition(
+                nodeId,
+                Just.CDS_MESSAGE_TRANSFORM_PROPERTY_NOT_FOUND,
+                Just.CDS_MESSAGE_TRANSFORM_PROPERTY_NOT_FOUND,
+                Just.IfCondition(
+                    nodeId,
+                    "ns=2;s=OPC.Sensor_IX00_ON",
+                    valueValue,
+                    Just.CDS_MESSAGE_TRANSFORM_PROPERTY_NOT_FOUND));
+            transformerJson.Add("Approach", approach);
 
             return transformerJson.ToString();
         }
